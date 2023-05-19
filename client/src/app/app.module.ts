@@ -8,22 +8,14 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CardTypeSelectorComponent } from './_components/card-type-selector/card-type-selector.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { LayoutQuantitySelectorComponent } from './_components/layout-quantity-selector/layout-quantity-selector.component';
-import { SbsSelectorComponent } from './_components/sbs-selector/sbs-selector.component';
-import { DatabaseSelectorComponent } from './_components/database-selector/database-selector.component';
-import { ResultComponent } from './_components/result/result.component';
-
+import { BestSuitedApplicationComponent } from './_component/best-suited-application/best-suited-application.component';
+import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CardTypeSelectorComponent,
-    LayoutQuantitySelectorComponent,
-    SbsSelectorComponent,
-    DatabaseSelectorComponent,
-    ResultComponent
+    BestSuitedApplicationComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,10 +26,12 @@ import { ResultComponent } from './_components/result/result.component';
     FormsModule,
     ReactiveFormsModule,
     MatRadioModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule.forRoot({ type: 'pacman' })
   ],
   exports: [
     FormsModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,12 @@
+<div class="container" style="text-align: center;">
+
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="pacman" [fullScreen]="true">
+        <p style="color: white"> Loading ... </p>
+    </ngx-spinner>
+
+    <h2 *ngIf="!Allowed(cardSize, layout, connection)">No application fits your needs</h2>
+
+    <div *ngIf="Allowed(cardSize, layout, connection)">
+        <iframe scrolling="no" style="border-style: none;width: 100%; height: 800px;" [src]="GetIFrame(GetApplication(cardSize, layout, connection))" frameborder="0"></iframe>
+    </div>
+</div>

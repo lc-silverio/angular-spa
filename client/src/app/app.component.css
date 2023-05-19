@@ -1,4 +1,47 @@
 * {
-    color: white;
-    background-color: grey;
+    color: #ffffff;
+}
+
+body {
+    height: 1080px;
+    width: 1920px;
+    background-image: url("../assets/img/bg.png");
+    background-repeat: repeat-y;
+}
+
+.input-hidden {
+    position: absolute;
+    left: -9999px;
+}
+
+input[type=radio]:checked+label>img {
+    box-shadow: 0 0 3px 3px #090;
+    border-radius: 25px;
+}
+
+input[type=radio]+label>img {
+    width: 150px;
+    height: 150px;
+    transition: 500ms all;
+}
+
+img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+label {
+    margin-top: 15px;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: black;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+    flex: none !important;
+}
+
+.navbar {
+    margin-left: 5px;
 }

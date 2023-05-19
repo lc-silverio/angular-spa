@@ -1,17 +1,108 @@
-<div style="padding: 3em" class="container">
-  <mat-vertical-stepper>
-    <mat-step label="Step 1">
-      <app-card-type-selector></app-card-type-selector>
-    </mat-step>
+<!DOCTYPE html>
+<html lang="en">
 
-    <mat-step label="Step 2">
-      <app-sbs-selector></app-sbs-selector>
-    </mat-step>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producer Wizard</title>
+</head>
 
-    <mat-step label="Step 3">
-      <app-layout-quantity-selector></app-layout-quantity-selector>
 
-      <app-database-selector></app-database-selector>
-    </mat-step>
-  </mat-vertical-stepper>
-</div>
+<body>
+  <!-- Nav Bar -->
+  <div class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Card Exchange</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse float-right !important" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="location.reload(); ">Wizard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Wizard -->
+  <div style="padding: 3em" style="text-align: center;" *ngIf="!clicked">
+    <mat-vertical-stepper [linear]="true">
+
+      <!-- Card size selection; Excludes Producer GO-->
+      <mat-step label="What card size will you be using?" editable="false">
+        <div>
+          <input type="radio" [(ngModel)]="cardSize" name="cardSize" id="cr80" class="input-hidden" value=1 />
+          <label for="cr80"><img src="../assets/img/Picture1.png" alt="CR-80 cards" /></label>
+
+          <input type="radio" [(ngModel)]="cardSize" name="cardSize" id="allCards" class="input-hidden" value=2 />
+          <label for="allCards" style="margin-left:25px;"><img src="../assets/img/Picture2.png" alt="Multiple card sizes" /> </label>
+        </div>
+      </mat-step>
+
+      <!-- SBS selection; Excludes Premium/Pro or Business/Enterprise -->
+      <mat-step label="What's your structure type?" *ngIf="cardSize == '2'" editable="false">
+        <div>
+          <input type="radio" [(ngModel)]="structure" name="structure" id="sbsNo" class="input-hidden" value=1>
+          <label for="sbsNo"><img src="../assets/img/OneUser.png" alt="One user"></label>
+
+          <input type="radio" [(ngModel)]="structure" name="structure" id="sbsYes" class="input-hidden" value=2>
+          <label for="sbsYes" style="margin-left:25px;"><img src="../assets/img/MultipleUsers.png" alt="Multiple Users user"></label>
+        </div>
+      </mat-step>
+
+      <!-- Selection between Premium vs Pro (layout) -->
+      <mat-step label="How many layouts per template will you need?" *ngIf="structure == '1'" editable="false">
+        <div>
+          <input type="radio" [(ngModel)]="layout" name="layoutLimited" id="limited" class="input-hidden" value=1 (change)="clicked=false">
+          <label for="limited"><img src="../assets/img/limited.png" alt="Limited templates"></label>
+
+          <input type="radio" [(ngModel)]="layout" name="layoutLimited" id="unlimited" class="input-hidden" value=2 (change)="clicked=false">
+          <label for="unlimited" style="margin-left:25px;"><img src="../assets/img/unlimited.png" alt="Unlimited templates"></label>
+        </div>
+      </mat-step>
+
+      <!-- Business vs Enterprise (db connection) -->
+      <mat-step label="Will you need direct connection to databases (MS SQL, Oracle, etc)?" *ngIf="structure == '2'" editable="false">
+        <div>
+          <input type="radio" [(ngModel)]="connection" name="connection" id="dbYes" class="input-hidden" value=1 (change)="clicked=false">
+          <label for="dbYes"><img src="../assets/img/DBYes.png" alt="Yes"></label>
+
+          <input type="radio" [(ngModel)]="connection" name="connection" id="dbNo" class="input-hidden" value=2 (change)="clicked=false">
+          <label for="dbNo" style="margin-left:25px;"><img src="../assets/img/DBNo.png" alt="No"></label>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+
+    <!-- Submit -->
+    <div *ngIf="cardSize == '1' || layout !== '' || connection !== ''" style="margin: 15px 0 15px 0">
+      <button (click)="click()" class="btn btn-success">Submit</button>
+    </div>
+  </div>
+
+  <!-- IFrame -->
+  <div *ngIf="clicked">
+    <app-best-suited-application [cardSize]="cardSize" [layout]="layout" [connection]="connection"></app-best-suited-application>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer" style="text-align: center;">
+    <hr>
+    <p>Card Exchange Id Soluctions Inc. 2023. All rights reserved </p>
+  </div>
+</body>
+
+</html>
